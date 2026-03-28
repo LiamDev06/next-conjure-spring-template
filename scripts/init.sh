@@ -7,7 +7,7 @@ set -euo pipefail
 
 NAME="${1:-}"
 if [ -z "$NAME" ]; then
-  echo "Usage: make init NAME=yourproject"
+  echo "Usage: make init yourproject"
   echo "  NAME should be lowercase, e.g. myproject or my-project"
   exit 1
 fi

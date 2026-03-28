@@ -1,6 +1,6 @@
 # next-conjure-spring-template
 
-A full-stack web application template using **Next.js**, **Spring Boot**, and **Palantir Conjure** for type-safe API contracts. Conjure generates both the Java server interfaces and the TypeScript client from a single API definition, keeping the frontend and backend in sync.
+A full-stack web application template/starter using **Next.js**, **Spring Boot**, and **Palantir Conjure** for type-safe API contracts. Conjure generates both the Java server interfaces and the TypeScript client from a single API definition, keeping the frontend and backend in sync.
 
 A `CLAUDE.md` is included at the root, making this template AI agent-ready out of the box. It documents the project conventions, architecture decisions, and patterns (Jersey vs Spring MVC, Conjure error handling, generated code boundaries, frontend component structure) so that Claude Code understands the codebase without needing manual explanation.
 
