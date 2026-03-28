@@ -1,0 +1,106 @@
+types:
+  definitions:
+    default-package: com.template.api.user
+
+    objects:
+      UserRoleType:
+        docs: The role of a user in the system.
+        values:
+          - value: GUEST
+            docs: A guest user with limited access.
+          - value: MEMBER
+            docs: A regular member with standard access.
+          - value: ADMIN
+            docs: An administrator with full access.
+
+      User:
+        docs: Represents a user in the system.
+        fields:
+          id:
+            type: uuid
+            docs: The unique identifier of the user.
+          name:
+            type: string
+            docs: The display name of the user.
+          role:
+            type: UserRoleType
+            docs: The role assigned to the user.
+
+      CreateUserRequest:
+        docs: Request body for creating a new user.
+        fields:
+          name:
+            type: string
+            docs: The display name for the new user.
+
+      CreateUserResponse:
+        docs: Response body returned after successfully creating a user.
+        fields:
+          user:
+            type: User
+            docs: The newly created user.
+
+      UpdateUserRequest:
+        docs: Request body for updating an existing user. Absent fields are left unchanged.
+        fields:
+          name:
+            type: optional<string>
+            docs: The new display name for the user.
+          role:
+            type: optional<UserRoleType>
+            docs: The new role for the user.
+
+    errors:
+      UserNotFound:
+        namespace: User
+        code: NOT_FOUND
+        docs: Thrown when a user with the given ID does not exist.
+        safe-args:
+          userId: uuid
+
+services:
+  UserService:
+    name: User Service
+    docs: Service for managing users.
+    base-path: /user
+    package: com.template.api.user
+
+    endpoints:
+      listUsers:
+        docs: Returns all users in the system.
+        http: GET /
+        returns: list<User>
+
+      getUser:
+        docs: Returns a single user by their unique ID.
+        http: GET /{userId}
+        args:
+          userId:
+            type: uuid
+            docs: The ID of the user to retrieve.
+        returns: User
+
+      createUser:
+        docs: Creates a new user and returns the created resource.
+        http: POST /
+        args:
+          request: CreateUserRequest
+        returns: CreateUserResponse
+
+      updateUser:
+        docs: Updates an existing user's name or role.
+        http: PUT /{userId}
+        args:
+          userId:
+            type: uuid
+            docs: The ID of the user to update.
+          request: UpdateUserRequest
+        returns: User
+
+      deleteUser:
+        docs: Deletes a user by their unique ID.
+        http: DELETE /{userId}
+        args:
+          userId:
+            type: uuid
+            docs: The ID of the user to delete.

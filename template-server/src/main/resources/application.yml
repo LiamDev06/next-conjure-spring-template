@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: template-server
+  main:
+    banner-mode: off
+  datasource:
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USER}
+    password: ${DATABASE_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate.globally_quoted_identifiers: true
+  flyway:
+    enabled: true
+    locations: classpath:database/migration
+    baseline-on-migrate: true
+    clean-disabled: true
+    out-of-order: false
+
+cors:
+  allowed-origins: "*"
+  allowed-methods: "GET, POST, PUT, DELETE, OPTIONS"
+  allowed-headers: "Content-Type, Authorization, Fetch-User-Agent"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: when-authorized

@@ -1,0 +1,29 @@
+{
+  "name": "template-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.95.2",
+    "@template/template-api": "file:../template-api/template-api-typescript/src",
+    "conjure-client": "^2.19.0",
+    "next": "16.2.1",
+    "next-intl": "^4.8.3",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "react-hook-form": "^7.72.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^10",
+    "eslint-config-next": "16.2.1",
+    "typescript": "^5.9.3"
+  }
+}
