@@ -4,6 +4,12 @@ A full-stack web application template/starter using **Next.js**, **Spring Boot**
 
 A `CLAUDE.md` is included at the root, making this template AI agent-ready out of the box. It documents the project conventions, architecture decisions, and patterns (Jersey vs Spring MVC, Conjure error handling, generated code boundaries, frontend component structure) so that Claude Code understands the codebase without needing manual explanation.
 
+## Why this setup?
+
+This is my personal preferred setup. The technology choices reflect how I like to build things, and they aren't prescriptive or "the right way", just what I reach for when starting a new project.
+Conjure for type-safe contracts between frontend and backend is invaluable to me, the code becomes cleaner and fully type-safe across both layers. Next.js on the frontend because it's what I know best.
+Once again, the linting rules used are my personal preference of how I like my code to be styled, and also act as a good safety net against too much AI-sloppy code when I let my AI agents go lose on the codebase.
+
 ## Stack
 
 | Layer | Technology |
@@ -32,6 +38,7 @@ A `CLAUDE.md` is included at the root, making this template AI agent-ready out o
 - Conjure TypeScript client pre-wired in `src/lib/api.ts`
 - `react-hook-form` for forms
 - `next-intl` for localization and messages
+- Code quality: ESLint (Next.js + TypeScript + React Hooks/Compiler checks) and Prettier
 
 ## Getting started
 
@@ -62,14 +69,34 @@ make dev
 
 ## Commands
 
+### Make
+
 | Command | Description |
 |---|---|
-| `make init [project-name]` | Initialise the project with your project name |
-| `make dev` | Start the server and frontend together |
-| `make gen-api-client` | Regenerate the TypeScript client after API changes |
+| `make init [project-name]` | Initialize the project with your project name |
+| `make dev` | Start the database, server and frontend together |
+| `make gen-api-client` | Regenerate the API client after changes |
+
+### Gradle
+
+| Command | Description |
+|---|---|
 | `./gradlew lint` | Run Spotless, Checkstyle, and PMD |
 | `./gradlew test` | Run server tests |
 | `./gradlew build` | Compile, lint, and test |
+
+### NPM
+
+Run these from `template-app`.
+
+| Command | Description |
+|---|---|
+| `npm run lint` | Run frontend ESLint checks |
+| `npm run lint:fix` | Auto-fix frontend ESLint issues such as import ordering |
+| `npm run format` | Format the frontend with Prettier |
+| `npm run format:check` | Check frontend formatting with Prettier |
+| `npm run typecheck` | Run the frontend TypeScript type checker |
+| `npm run check` | Run frontend typecheck, lint, and format checks |
 
 ## Updating the API
 

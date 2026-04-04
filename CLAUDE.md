@@ -7,18 +7,18 @@ Full-stack web application with a **Next.js** frontend, **Spring Boot** backend,
 ## Project structure
 
 ```
-├── [name]-api/                        # Conjure API definition + generated code
-│   ├── src/main/conjure/api.yml       # Source of truth for the API — edit this
-│   ├── [name]-api-objects/            # Generated Java types (never edit)
-│   ├── [name]-api-jersey/             # Generated Java server interfaces (never edit)
-│   └── [name]-api-typescript/         # Generated TypeScript client (never edit)
-├── [name]-server/                     # Spring Boot application
-│   └── src/main/java/com/[name]/server/
-├── [name]-app/                        # Next.js application
+├── template-api/                        # Conjure API definition + generated code
+│   ├── src/main/conjure/api.yml        # Source of truth for the API — edit this
+│   ├── template-api-objects/            # Generated Java types (never edit)
+│   ├── template-api-jersey/             # Generated Java server interfaces (never edit)
+│   └── template-api-typescript/         # Generated TypeScript client (never edit)
+├── template-server/                     # Spring Boot application
+│   └── src/main/java/com/template/server/
+├── template-app/                        # Next.js application
 │   └── src/
-│       ├── app/                       # Next.js app router
+│       ├── app/                         # Next.js app router
 │       ├── components/
-│       └── lib/api.ts                 # Conjure HTTP bridge setup
+│       └── lib/api.ts                   # Conjure HTTP bridge setup
 └── scripts/
 ```
 
@@ -102,11 +102,11 @@ class MyServiceTest { ... }
 
 ### Never edit generated code
 
-The contents of `[name]-api-objects/`, `[name]-api-jersey/`, and `[name]-api-typescript/` are fully generated. Any manual changes will be overwritten. All API changes go through `api.yml`.
+The contents of `template-api-objects/`, `template-api-jersey/`, and `template-api-typescript/` are fully generated. Any manual changes will be overwritten. All API changes go through `api.yml`.
 
 ### Changing the API
 
-1. Edit `[name]-api/src/main/conjure/api.yml`
+1. Edit `template-api/src/main/conjure/api.yml`
 2. Run `make gen-api-client` — regenerates Java interfaces and TypeScript client
 3. Implement any new/changed methods in the server resource class
 4. The TypeScript client is automatically available in the frontend via `src/lib/api.ts`
@@ -178,15 +178,65 @@ export default function SomeComponent() {
 
 `NEXT_PUBLIC_API_BASE_URL` controls the backend URL the client connects to (configured in `.env.local`).
 
+### Frontend code quality
+
+The frontend uses ESLint and Prettier. When working in `template-app`, treat lint compliance as part of the implementation, not as optional cleanup after the fact.
+
+Important frontend commands, run from `template-app`:
+
+```bash
+npm run lint
+npm run lint:fix
+npm run format
+npm run format:check
+npm run typecheck
+npm run check
+```
+
+`npm run lint:fix` auto-fixes import ordering and some other mechanical issues. Prettier handles formatting only; import ordering is handled by ESLint auto-fix, not Prettier.
+
+Key frontend rules that are intentionally strict to reduce AI-slop:
+
+- Use `function` declarations for named components and helper functions where possible, not `const Foo = () =>`
+- Use named exports by default; reserve default exports for framework-required files such as Next app entry files
+- Do not use JSX `&&` rendering; use an explicit ternary instead
+- Use meaningful identifier names; avoid one-letter names except common loop/index idioms like `i`, `j`, `k`, `x`, `y`, `z`
+- Use explicit boolean conditions in TypeScript; avoid vague truthy/falsy checks
+- Keep files reasonably small: frontend files are capped at 500 lines
+- Keep lines readable: frontend lines are capped at 100 characters unless covered by configured exceptions
+- File naming under `src/` must use `camelCase` or `PascalCase`, with explicit exceptions for Next special files like `page.tsx`, `layout.tsx`, `route.ts`, and `not-found.tsx`
+
+When adding imports, prefer normal imports over inline fully qualified access patterns. Let `npm run lint:fix` keep import order consistent.
+
 ---
 
 ## Commands
+
+### Make
 
 | Command | Description |
 |---|---|
 | `make dev` | Start server and frontend together |
 | `make gen-api-client` | Regenerate TypeScript client after API changes |
+
+### Gradle
+
+| Command | Description |
+|---|---|
 | `./gradlew :server:bootRun` | Start the server only |
-| `./gradlew lint` | Run Spotless, Checkstyle, PMD |
+| `./gradlew lint` | Run Spotless, Checkstyle, and PMD |
 | `./gradlew test` | Run server tests |
 | `./gradlew build` | Compile, lint, and test |
+
+### NPM
+
+Run these from `template-app`.
+
+| Command | Description |
+|---|---|
+| `npm run lint` | Run frontend ESLint checks |
+| `npm run lint:fix` | Auto-fix frontend ESLint issues such as import ordering |
+| `npm run format` | Format the frontend with Prettier |
+| `npm run format:check` | Check frontend formatting with Prettier |
+| `npm run typecheck` | Run the frontend TypeScript type checker |
+| `npm run check` | Run frontend typecheck, lint, and format checks |
