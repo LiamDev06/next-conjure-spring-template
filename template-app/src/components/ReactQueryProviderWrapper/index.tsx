@@ -12,14 +12,14 @@ const client = new QueryClient({
       staleTime: STALE_TIME,
       gcTime: GC_TIME,
       retry: false,
-      refetchOnWindowFocus: false
+      refetchOnWindowFocus: false,
     },
   },
 });
 
 type QueryClientWrapperProps = {
   children: ReactNode;
-}
+};
 
 export function ReactQueryProviderWrapper({ children }: QueryClientWrapperProps) {
   return (

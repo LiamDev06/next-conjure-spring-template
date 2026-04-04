@@ -6,7 +6,7 @@ const bridge = new DefaultHttpApiBridge({
   baseUrl: config.apiBaseUrl,
   userAgent: {
     productName: "template-app",
-    productVersion: "0.0.1"
+    productVersion: "0.0.1",
   },
 });
 
