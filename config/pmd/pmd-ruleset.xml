@@ -1,40 +1,70 @@
 <?xml version="1.0"?>
 <ruleset name="Template PMD Ruleset"
-    xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
+         xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
 
     <description>Standard ruleset for template project</description>
 
     <rule ref="category/java/bestpractices.xml">
+        <!-- Unnecessary with SLF4J parameterized logging -->
         <exclude name="GuardLogStatement"/>
     </rule>
 
     <rule ref="category/java/errorprone.xml">
+        <!-- Spring classes inherit Serializable indirectly; manual serialVersionUID adds noise -->
         <exclude name="MissingSerialVersionUID"/>
+        <!-- Not needed unless handling locale-sensitive text like Turkish -->
         <exclude name="UseLocaleWithCaseConversions"/>
     </rule>
 
     <rule ref="category/java/codestyle.xml">
+        <!-- Early returns and guard clauses improve readability -->
         <exclude name="OnlyOneReturn"/>
+        <!-- Spring components rely on implicit or injected constructors -->
         <exclude name="AtLeastOneConstructor"/>
+        <!-- Requiring /* default */ comments on package-private members is noisy -->
         <exclude name="CommentDefaultAccessModifier"/>
+        <!-- Java calls super() implicitly; requiring it is redundant -->
         <exclude name="CallSuperInConstructor"/>
+        <!-- Extra parentheses can improve readability in complex expressions -->
         <exclude name="UselessParentheses"/>
+        <!-- Descriptive variable names should not be penalised -->
         <exclude name="LongVariable"/>
-        <exclude name="ShortVariable"/>
+        <!-- Short class names like User, App, Task are fine -->
         <exclude name="ShortClassName"/>
+        <!-- Test classes with AssertJ/Mockito legitimately need many static imports -->
         <exclude name="TooManyStaticImports"/>
     </rule>
+
+    <!-- Short variable names flagged except common idioms -->
+    <rule ref="category/java/codestyle.xml/ShortVariable">
+        <properties>
+            <property name="allowedShortNames" value="id,i,j,k,x,y,z,e" />
+        </properties>
+    </rule>
+
+    <!-- Prefer imports over fully qualified names inside code -->
+    <rule ref="category/java/codestyle.xml/UnnecessaryFullyQualifiedName"/>
 
     <rule ref="category/java/performance.xml"/>
 
     <rule ref="category/java/design.xml">
+        <!-- Too aggressive; flags builders, fluent APIs, and stream chains -->
         <exclude name="LawOfDemeter"/>
+        <!-- Package coupling is better enforced via ArchUnit or module systems -->
         <exclude name="LoosePackageCoupling"/>
+        <!-- DTOs and Conjure-generated types are data classes by design -->
         <exclude name="DataClass"/>
-        <exclude name="TooManyMethods"/>
+        <!-- Spring config and test classes naturally have many imports -->
         <exclude name="ExcessiveImports"/>
+    </rule>
+
+    <!-- Allow up to 25 methods per class -->
+    <rule ref="category/java/design.xml/TooManyMethods">
+        <properties>
+            <property name="maxmethods" value="25" />
+        </properties>
     </rule>
 
 </ruleset>

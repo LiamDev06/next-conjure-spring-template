@@ -13,6 +13,11 @@
     <module name="FileLength">
         <property name="max" value="500"/>
     </module>
+    <module name="RegexpSinglelineJava">
+        <property name="format" value="^(?!\s*(?:import|package)\b).*\b(?:java|javax|jakarta|org|com)\.[A-Za-z_]\w*(?:\.[A-Za-z_]\w*)+\b"/>
+        <property name="ignoreComments" value="true"/>
+        <property name="message" value="Avoid fully qualified names in code. Add an import and use the simple type/member name instead."/>
+    </module>
 
     <module name="TreeWalker">
 
@@ -59,6 +64,11 @@
             <property name="tokens" value="LITERAL_TRY, LITERAL_FINALLY, LITERAL_IF, LITERAL_ELSE, LITERAL_SWITCH"/>
         </module>
 
+        <!-- Line length -->
+        <module name="LineLength">
+            <property name="max" value="120"/>
+        </module>
+
         <!-- Coding -->
         <module name="OneStatementPerLine"/>
         <module name="MultipleVariableDeclarations"/>
@@ -78,7 +88,15 @@
 
         <!-- Size violations -->
         <module name="MethodLength">
-            <property name="max" value="80"/>
+            <property name="max" value="100"/>
+        </module>
+
+        <!-- Nesting depth -->
+        <module name="NestedIfDepth">
+            <property name="max" value="2"/>
+        </module>
+        <module name="NestedTryDepth">
+            <property name="max" value="1"/>
         </module>
 
         <!-- Miscellaneous -->
