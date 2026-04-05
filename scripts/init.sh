@@ -13,7 +13,7 @@ if [ -z "$NAME" ]; then
 fi
 
 # Derive naming variants
-NAME_PACKAGE=$(echo "$NAME" | tr -d '-_')
+NAME_PACKAGE=$(printf '%s' "$NAME" | tr -d '_-')
 NAME_PASCAL=$(python3 -c "n='$NAME'; print(''.join(w.capitalize() for w in n.replace('-','_').split('_')))")
 
 echo ""
@@ -60,7 +60,21 @@ do
 done
 
 # ---------------------------------------------------------------------------
-# Step 3: Rename module directories (subdirs before parent)
+# Step 3: Rename Java source files
+# ---------------------------------------------------------------------------
+echo "==> Renaming Java source files..."
+
+for file in \
+  "template-server/src/main/java/com/$NAME_PACKAGE/server/TemplateServer.java" \
+  "template-server/src/test/java/com/$NAME_PACKAGE/server/TemplateServerTest.java"
+do
+  if [ -f "$file" ]; then
+    mv "$file" "${file//Template/$NAME_PASCAL}"
+  fi
+done
+
+# ---------------------------------------------------------------------------
+# Step 4: Rename module directories (subdirs before parent)
 # ---------------------------------------------------------------------------
 echo "==> Renaming module directories..."
 
@@ -72,20 +86,20 @@ mv "template-server" "$NAME-server"
 mv "template-app"    "$NAME-app"
 
 # ---------------------------------------------------------------------------
-# Step 4: Copy environment files
+# Step 5: Copy environment files
 # ---------------------------------------------------------------------------
 echo "==> Copying environment files..."
 cp "$NAME-server/src/main/resources/.env.example" "$NAME-server/src/main/resources/.env"
 cp "$NAME-app/.env.example" "$NAME-app/.env.local"
 
 # ---------------------------------------------------------------------------
-# Step 5: Build server
+# Step 6: Build server
 # ---------------------------------------------------------------------------
 echo "==> Building server..."
 ./gradlew ":$NAME-server:build"
 
 # ---------------------------------------------------------------------------
-# Step 6: Generate API client and install frontend dependencies
+# Step 7: Generate API client and install frontend dependencies
 # ---------------------------------------------------------------------------
 echo "==> Generating API client and installing frontend dependencies..."
 ./scripts/generate-api-client.sh
