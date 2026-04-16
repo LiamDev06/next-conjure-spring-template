@@ -10,7 +10,9 @@ dev:
 	@./scripts/dev.sh
 
 stop:
-	@./scripts/stop.sh
+	@lsof -ti :8080 2>/dev/null | xargs kill 2>/dev/null || true
+	@lsof -ti :3000 2>/dev/null | xargs kill 2>/dev/null || true
+	@docker compose stop postgres
 
 db:
 	@docker compose up -d postgres
