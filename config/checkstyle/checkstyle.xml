@@ -13,13 +13,18 @@
     <module name="FileLength">
         <property name="max" value="500"/>
     </module>
-    <module name="RegexpSinglelineJava">
-        <property name="format" value="^(?!\s*(?:import|package)\b).*\b(?:java|javax|jakarta|org|com)\.[A-Za-z_]\w*(?:\.[A-Za-z_]\w*)+\b"/>
-        <property name="ignoreComments" value="true"/>
-        <property name="message" value="Avoid fully qualified names in code. Add an import and use the simple type/member name instead."/>
+    <module name="LineLength">
+        <property name="max" value="120"/>
     </module>
 
     <module name="TreeWalker">
+
+        <!-- Fully qualified names in code -->
+        <module name="RegexpSinglelineJava">
+            <property name="format" value="^(?!\s*(?:import|package)\b).*\b(?:java|javax|jakarta|org|com)\.[A-Za-z_]\w*(?:\.[A-Za-z_]\w*)+\b"/>
+            <property name="ignoreComments" value="true"/>
+            <property name="message" value="Avoid fully qualified names in code. Add an import and use the simple type/member name instead."/>
+        </module>
 
         <!-- Imports -->
         <module name="UnusedImports"/>
@@ -28,15 +33,26 @@
         <module name="AvoidStarImport"/>
 
         <!-- Naming conventions -->
+        <!-- Variable naming: 3+ char camelCase, with explicit allowlist for common short idioms -->
         <module name="TypeName"/>
         <module name="ConstantName"/>
-        <module name="LocalFinalVariableName"/>
-        <module name="LocalVariableName"/>
-        <module name="MemberName"/>
+        <module name="LocalFinalVariableName">
+            <property name="format" value="^([a-z][a-zA-Z0-9]{2,}|i|j|k|x|y|z|e|id)$"/>
+        </module>
+        <module name="LocalVariableName">
+            <property name="format" value="^([a-z][a-zA-Z0-9]{2,}|i|j|k|x|y|z|e|id)$"/>
+        </module>
+        <module name="MemberName">
+            <property name="format" value="^([a-z][a-zA-Z0-9]{2,}|i|j|k|x|y|z|e|id)$"/>
+        </module>
         <module name="MethodName"/>
         <module name="PackageName"/>
-        <module name="ParameterName"/>
-        <module name="StaticVariableName"/>
+        <module name="ParameterName">
+            <property name="format" value="^([a-z][a-zA-Z0-9]{2,}|i|j|k|x|y|z|e|id)$"/>
+        </module>
+        <module name="StaticVariableName">
+            <property name="format" value="^([a-z][a-zA-Z0-9]{2,}|i|j|k|x|y|z|e|id)$"/>
+        </module>
         <module name="ClassTypeParameterName"/>
         <module name="MethodTypeParameterName"/>
 
@@ -62,11 +78,6 @@
         <module name="EmptyBlock">
             <property name="option" value="TEXT"/>
             <property name="tokens" value="LITERAL_TRY, LITERAL_FINALLY, LITERAL_IF, LITERAL_ELSE, LITERAL_SWITCH"/>
-        </module>
-
-        <!-- Line length -->
-        <module name="LineLength">
-            <property name="max" value="120"/>
         </module>
 
         <!-- Coding -->

@@ -35,17 +35,9 @@
         <exclude name="ShortClassName"/>
         <!-- Test classes with AssertJ/Mockito legitimately need many static imports -->
         <exclude name="TooManyStaticImports"/>
+        <!-- PMD 7 dropped allowedShortNames; common idioms (id, i, j, k, x, y, z, e) would be false positives -->
+        <exclude name="ShortVariable"/>
     </rule>
-
-    <!-- Short variable names flagged except common idioms -->
-    <rule ref="category/java/codestyle.xml/ShortVariable">
-        <properties>
-            <property name="allowedShortNames" value="id,i,j,k,x,y,z,e" />
-        </properties>
-    </rule>
-
-    <!-- Prefer imports over fully qualified names inside code -->
-    <rule ref="category/java/codestyle.xml/UnnecessaryFullyQualifiedName"/>
 
     <rule ref="category/java/performance.xml"/>
 
