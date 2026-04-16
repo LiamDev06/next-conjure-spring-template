@@ -135,8 +135,10 @@ The Conjure TypeScript client is set up in `src/lib/api.ts`. Use it directly wit
 ```typescript
 import { api } from "@/lib/api";
 
+const QUERY_KEY = ["useListUsers"]
+
 const { data } = useQuery({
-  queryKey: ["useListUsers"],
+  queryKey: QUERY_KEY,
   queryFn: () => api.userService.listUsers(),
 });
 ```
