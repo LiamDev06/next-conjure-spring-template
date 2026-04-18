@@ -19,8 +19,7 @@ const templatePlugin = {
         },
         schema: [],
         messages: {
-          missingParens:
-            "Wrap returned JSX in parentheses: `return ( ... );`",
+          missingParens: "Wrap returned JSX in parentheses: `return ( ... );`",
           invalidLayout:
             "Place returned JSX on its own lines inside the parentheses.",
         },
@@ -38,7 +37,9 @@ const templatePlugin = {
               return;
             }
 
-            const tokenBeforeArgument = sourceCode.getTokenBefore(node.argument);
+            const tokenBeforeArgument = sourceCode.getTokenBefore(
+              node.argument
+            );
             const tokenAfterArgument = sourceCode.getTokenAfter(node.argument);
             const hasParens =
               tokenBeforeArgument?.value === "(" &&
@@ -159,8 +160,7 @@ const eslintConfig = defineConfig([
             "Use named exports by default. Reserve default exports for framework-required entry files.",
         },
         {
-          selector:
-            "JSXExpressionContainer > LogicalExpression[operator='&&']",
+          selector: "JSXExpressionContainer > LogicalExpression[operator='&&']",
           message:
             "Do not use '&&' for JSX rendering. Use an explicit ternary so the false case is visible.",
         },
@@ -214,8 +214,7 @@ const eslintConfig = defineConfig([
       "no-restricted-syntax": [
         "error",
         {
-          selector:
-            "JSXExpressionContainer > LogicalExpression[operator='&&']",
+          selector: "JSXExpressionContainer > LogicalExpression[operator='&&']",
           message:
             "Do not use '&&' for JSX rendering. Use an explicit ternary so the false case is visible.",
         },

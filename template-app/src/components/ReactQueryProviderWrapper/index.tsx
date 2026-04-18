@@ -21,10 +21,8 @@ type QueryClientWrapperProps = {
   children: ReactNode;
 };
 
-export function ReactQueryProviderWrapper({ children }: QueryClientWrapperProps) {
-  return (
-    <QueryClientProvider client={client}>
-      {children}
-    </QueryClientProvider>
-  );
+export function ReactQueryProviderWrapper({
+  children,
+}: QueryClientWrapperProps) {
+  return <QueryClientProvider client={client}>{children}</QueryClientProvider>;
 }
