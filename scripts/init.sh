@@ -93,13 +93,20 @@ cp "$NAME-server/src/main/resources/.env.example" "$NAME-server/src/main/resourc
 cp "$NAME-app/.env.example" "$NAME-app/.env"
 
 # ---------------------------------------------------------------------------
-# Step 6: Build server
+# Step 6: Install git hooks
+# ---------------------------------------------------------------------------
+echo "==> Installing git hooks..."
+cp scripts/hooks/pre-commit.sh .git/hooks/pre-commit
+chmod +x .git/hooks/pre-commit
+
+# ---------------------------------------------------------------------------
+# Step 7: Build server
 # ---------------------------------------------------------------------------
 echo "==> Building server..."
 ./gradlew ":$NAME-server:build"
 
 # ---------------------------------------------------------------------------
-# Step 7: Generate API client and install frontend dependencies
+# Step 8: Generate API client and install frontend dependencies
 # ---------------------------------------------------------------------------
 echo "==> Generating API client and installing frontend dependencies..."
 ./scripts/generate-api-client.sh
