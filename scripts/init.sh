@@ -42,6 +42,10 @@ find . -type f \( -name "*.kts" -o -name "*.yml" -o -name "*.yaml" -o -name "*.j
   -not -path "*/build/*" -not -path "*/node_modules/*" -not -path "*/.git/*" \
   -exec sed -i '' "s|@template/|@$NAME/|g; s/template-/$NAME-/g" {} +
 
+# template- -> <name>- inside git hooks (no file extension, so scanned separately)
+find .githooks -type f \
+  -exec sed -i '' "s/template-/$NAME-/g" {} +
+
 # rootProject.name = "template" (bare word, not caught by template- pattern)
 sed -i '' "s/rootProject\.name = \"template\"/rootProject.name = \"$NAME\"/" settings.gradle.kts
 
@@ -93,11 +97,10 @@ cp "$NAME-server/src/main/resources/.env.example" "$NAME-server/src/main/resourc
 cp "$NAME-app/.env.example" "$NAME-app/.env"
 
 # ---------------------------------------------------------------------------
-# Step 6: Install git hooks
+# Step 6: Configure git hooks path
 # ---------------------------------------------------------------------------
-echo "==> Installing git hooks..."
-cp scripts/hooks/pre-commit.sh .git/hooks/pre-commit
-chmod +x .git/hooks/pre-commit
+echo "==> Configuring git hooks..."
+git config core.hooksPath .githooks
 
 # ---------------------------------------------------------------------------
 # Step 7: Build server
