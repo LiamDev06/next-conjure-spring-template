@@ -55,9 +55,9 @@ make init myproject
 
 ### 2. Configure environment
 
-`init` auto-copies `.env.example` to `.env.local` (frontend) and `.env` (server). Update the generated files with your values:
+`init` auto-copies `.env.example` to `.env` (frontend) and `.env` (server). Update the generated files with your values:
 
-- **Frontend** (`myproject-app/.env.local`): set `NEXT_PUBLIC_API_BASE_URL` to your backend URL (defaults to `http://localhost:8080`)
+- **Frontend** (`myproject-app/.env`): set `NEXT_PUBLIC_API_BASE_URL` to your backend URL (defaults to `http://localhost:8080`)
 - **Server** (`myproject-server/src/main/resources/.env`): set `DATABASE_URL`, `DATABASE_USER`, and `DATABASE_PASSWORD`
 
 ### 3. Run
