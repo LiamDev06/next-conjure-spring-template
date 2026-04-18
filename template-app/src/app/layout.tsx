@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { ReactNode } from "react";
-import { ReactQueryProviderWrapper } from "@/components/ReactQueryProviderWrapper";
-import { getLocale, getMessages } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
+import { getLocale, getMessages } from "next-intl/server";
+import { ReactNode } from "react";
+
+import { ReactQueryProviderWrapper } from "@/components/ReactQueryProviderWrapper";
 
 export const metadata: Metadata = {
   title: "Template App",

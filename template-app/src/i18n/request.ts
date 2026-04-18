@@ -6,7 +6,7 @@ const LOCALE_KEY = "locale";
 
 export default getRequestConfig(async () => {
   const cookiesStore = await cookies();
-  const locale = cookiesStore.get(LOCALE_KEY)?.value || DEFAULT_LOCALE;
+  const locale = cookiesStore.get(LOCALE_KEY)?.value ?? DEFAULT_LOCALE;
 
   const file = await import(`../../messages/${locale}.json`);
 
