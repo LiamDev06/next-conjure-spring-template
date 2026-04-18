@@ -3,6 +3,8 @@ spring:
     name: template-server
   main:
     banner-mode: off
+  lifecycle:
+    timeout-per-shutdown-phase: 30s
   datasource:
     url: ${DATABASE_URL}
     username: ${DATABASE_USER}
@@ -24,6 +26,9 @@ cors:
   allowed-origins: "*"
   allowed-methods: "GET, POST, PUT, DELETE, OPTIONS"
   allowed-headers: "Content-Type, Authorization, Fetch-User-Agent"
+
+server:
+  shutdown: graceful
 
 management:
   endpoints:
