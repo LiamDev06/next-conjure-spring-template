@@ -90,7 +90,7 @@ mv "template-app"    "$NAME-app"
 # ---------------------------------------------------------------------------
 echo "==> Copying environment files..."
 cp "$NAME-server/src/main/resources/.env.example" "$NAME-server/src/main/resources/.env"
-cp "$NAME-app/.env.example" "$NAME-app/.env.local"
+cp "$NAME-app/.env.example" "$NAME-app/.env"
 
 # ---------------------------------------------------------------------------
 # Step 6: Build server
