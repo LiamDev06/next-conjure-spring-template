@@ -86,7 +86,7 @@ const eslintConfig = defineConfig([
     },
     settings: {
       react: {
-        version: "detect",
+        version: "19",
       },
     },
     rules: {
@@ -183,6 +183,12 @@ const eslintConfig = defineConfig([
   },
   {
     files: ["**/*.{ts,tsx,mts,cts}"],
+    languageOptions: {
+      parserOptions: {
+        project: true,
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
     rules: {
       "@typescript-eslint/strict-boolean-expressions": [
         "error",
