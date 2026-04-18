@@ -76,7 +76,7 @@ The import comes from the generated API package, not the server:
 import com.template.api.user.UserErrors;
 ```
 
-When adding a new error, define it in `api.yml` under `errors:` with the appropriate `namespace`, run `make gen-api-client`, and call the generated factory method in your resource.
+When adding a new error, define it in `api.yml` under `errors:` with the appropriate `namespace`, run `make gen`, and call the generated factory method in your resource.
 
 ### Database
 
@@ -105,7 +105,7 @@ The contents of `template-api-objects/`, `template-api-jersey/`, and `template-a
 ### Changing the API
 
 1. Edit `template-api/src/main/conjure/api.yml`
-2. Run `make gen-api-client` — regenerates Java interfaces and TypeScript client
+2. Run `make gen` — regenerates Java interfaces and TypeScript client
 3. Implement any new/changed methods in the server resource class
 4. The TypeScript client is automatically available in the frontend via `src/lib/api.ts`
 
@@ -182,17 +182,6 @@ export default function SomeComponent() {
 
 The frontend uses ESLint and Prettier. When working in `template-app`, treat lint compliance as part of the implementation, not as optional cleanup after the fact.
 
-Important frontend commands, run from `template-app`:
-
-```bash
-npm run lint
-npm run lint:fix
-npm run format
-npm run format:check
-npm run typecheck
-npm run check
-```
-
 `npm run lint:fix` auto-fixes import ordering and some other mechanical issues. Prettier handles formatting only; import ordering is handled by ESLint auto-fix, not Prettier.
 
 Key frontend rules that are intentionally strict to reduce AI-slop:
@@ -207,36 +196,3 @@ Key frontend rules that are intentionally strict to reduce AI-slop:
 - File naming under `src/` must use `camelCase` or `PascalCase`, with explicit exceptions for Next special files like `page.tsx`, `layout.tsx`, `route.ts`, and `not-found.tsx`
 
 When adding imports, prefer normal imports over inline fully qualified access patterns. Let `npm run lint:fix` keep import order consistent.
-
----
-
-## Commands
-
-### Make
-
-| Command | Description |
-|---|---|
-| `make dev` | Start server and frontend together |
-| `make gen-api-client` | Regenerate TypeScript client after API changes |
-
-### Gradle
-
-| Command | Description |
-|---|---|
-| `./gradlew :server:bootRun` | Start the server only |
-| `./gradlew lint` | Run Spotless, Checkstyle, and PMD |
-| `./gradlew test` | Run server tests |
-| `./gradlew build` | Compile, lint, and test |
-
-### NPM
-
-Run these from `template-app`.
-
-| Command | Description |
-|---|---|
-| `npm run lint` | Run frontend ESLint checks |
-| `npm run lint:fix` | Auto-fix frontend ESLint issues such as import ordering |
-| `npm run format` | Format the frontend with Prettier |
-| `npm run format:check` | Check frontend formatting with Prettier |
-| `npm run typecheck` | Run the frontend TypeScript type checker |
-| `npm run check` | Run frontend typecheck, lint, and format checks |

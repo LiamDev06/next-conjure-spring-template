@@ -75,7 +75,11 @@ make dev
 |---|---|
 | `make init [project-name]` | Initialize the project with your project name |
 | `make dev` | Start the database, server and frontend together |
-| `make gen-api-client` | Regenerate the API client after changes |
+| `make stop` | Stop everything (database, server and frontend) |
+| `make db` | Run the database container only |
+| `make server` | Run the server only |
+| `make frontend` | Run the frontend app only |
+| `make gen` | Regenerate the API client after changes |
 
 ### Gradle
 
@@ -101,5 +105,5 @@ Run these from `template-app`.
 ## Updating the API
 
 1. Edit `template-api/src/main/conjure/api.yml`
-2. Run `make gen-api-client` to regenerate and recompile the client
+2. Run `make gen` to regenerate and recompile the client
 3. Implement the updated interface in `template-server`
