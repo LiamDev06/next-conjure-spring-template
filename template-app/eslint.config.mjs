@@ -60,6 +60,7 @@ const eslintConfig = defineConfig([
       "object-shorthand": ["error", "always"],
       "prefer-const": "error",
       "prefer-template": "error",
+      "react/no-unescaped-entities": "off",
       "react/function-component-definition": [
         "error",
         {
