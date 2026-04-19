@@ -1,75 +1,12 @@
-import { defineConfig, globalIgnores } from "eslint/config";
 import typescriptEslint from "@typescript-eslint/eslint-plugin";
-import eslintConfigPrettier from "eslint-config-prettier/flat";
+import { defineConfig, globalIgnores } from "eslint/config";
 import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
+import eslintConfigPrettier from "eslint-config-prettier/flat";
 import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
 import simpleImportSort from "eslint-plugin-simple-import-sort";
 import unicorn from "eslint-plugin-unicorn";
-
-const templatePlugin = {
-  rules: {
-    "jsx-return-parens": {
-      meta: {
-        type: "layout",
-        docs: {
-          description:
-            "Enforce wrapping returned JSX in parentheses and placing it on its own lines.",
-        },
-        schema: [],
-        messages: {
-          missingParens: "Wrap returned JSX in parentheses: `return ( ... );`",
-          invalidLayout:
-            "Place returned JSX on its own lines inside the parentheses.",
-        },
-      },
-      create(context) {
-        const sourceCode = context.sourceCode;
-
-        return {
-          ReturnStatement(node) {
-            if (
-              node.argument == null ||
-              (node.argument.type !== "JSXElement" &&
-                node.argument.type !== "JSXFragment")
-            ) {
-              return;
-            }
-
-            const tokenBeforeArgument = sourceCode.getTokenBefore(
-              node.argument
-            );
-            const tokenAfterArgument = sourceCode.getTokenAfter(node.argument);
-            const hasParens =
-              tokenBeforeArgument?.value === "(" &&
-              tokenAfterArgument?.value === ")";
-
-            if (!hasParens) {
-              context.report({
-                node: node.argument,
-                messageId: "missingParens",
-              });
-              return;
-            }
-
-            const hasExpectedLayout =
-              node.loc.start.line === tokenBeforeArgument.loc.start.line &&
-              node.argument.loc.start.line > tokenBeforeArgument.loc.end.line &&
-              tokenAfterArgument.loc.start.line > node.argument.loc.end.line;
-
-            if (!hasExpectedLayout) {
-              context.report({
-                node: node.argument,
-                messageId: "invalidLayout",
-              });
-            }
-          },
-        };
-      },
-    },
-  },
-};
 
 const eslintConfig = defineConfig([
   ...nextVitals,
@@ -81,7 +18,6 @@ const eslintConfig = defineConfig([
       "@typescript-eslint": typescriptEslint,
       react,
       "simple-import-sort": simpleImportSort,
-      template: templatePlugin,
       unicorn,
     },
     settings: {
@@ -151,14 +87,8 @@ const eslintConfig = defineConfig([
           propertyValue: "parens-new-line",
         },
       ],
-      "template/jsx-return-parens": "error",
       "no-restricted-syntax": [
         "error",
-        {
-          selector: "ExportDefaultDeclaration",
-          message:
-            "Use named exports by default. Reserve default exports for framework-required entry files.",
-        },
         {
           selector: "JSXExpressionContainer > LogicalExpression[operator='&&']",
           message:
@@ -199,6 +129,24 @@ const eslintConfig = defineConfig([
           allowNullableString: false,
           allowNumber: false,
           allowString: false,
+        },
+      ],
+    },
+  },
+  {
+    files: ["src/**/*.{ts,tsx,js,jsx}"],
+    rules: {
+      "no-restricted-syntax": [
+        "error",
+        {
+          selector: "ExportDefaultDeclaration",
+          message:
+            "Use named exports by default. Reserve default exports for framework-required entry files.",
+        },
+        {
+          selector: "JSXExpressionContainer > LogicalExpression[operator='&&']",
+          message:
+            "Do not use '&&' for JSX rendering. Use an explicit ternary so the false case is visible.",
         },
       ],
     },
