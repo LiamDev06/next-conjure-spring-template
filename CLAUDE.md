@@ -170,6 +170,24 @@ export default function SomeComponent() {
 }
 ```
 
+### CSS
+
+Use BEM (Block Element Modifier) naming in CSS Module files. The block is the component, elements are children, and modifiers are variants.
+
+```css
+/* DO NOT do this */
+.title { ... }
+.active { ... }
+.item-icon { ... }
+
+/* DO this */
+.card { ... }
+.card__title { ... }
+.card__item { ... }
+.card__item--active { ... }
+.card__item__icon { ... }
+```
+
 ### Localization
 
 `next-intl` is set up for localisation and messages. Add message files under `messages/` and use `useTranslations` in components.
