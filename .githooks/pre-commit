@@ -21,13 +21,13 @@ if [ "$FRONTEND_CHANGED" = true ]; then
   echo "==> Frontend changes detected"
 
   echo "    Running ESLint..."
-  if ! (cd template-app && npm run lint); then
+  if ! (cd template-app && pnpm lint); then
     FAILED=true
   fi
 
   echo "    Running Prettier check..."
-  if ! (cd template-app && npm run format:check); then
-    echo "    To fix: cd template-app && npm run format"
+  if ! (cd template-app && pnpm format:check); then
+    echo "    To fix: cd template-app && pnpm format"
     FAILED=true
   fi
 fi

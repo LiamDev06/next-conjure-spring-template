@@ -196,11 +196,15 @@ Use BEM (Block Element Modifier) naming in CSS Module files. The block is the co
 
 `NEXT_PUBLIC_API_BASE_URL` controls the backend URL the client connects to (configured in `.env.local`).
 
+### Package manager
+
+The frontend uses **pnpm**, not npm. Run scripts as `pnpm <script>`. Pin all versions exactly in `package.json` — never use `^` or `~`. Do not modify `template-app/.npmrc`.
+
 ### Frontend code quality
 
 The frontend uses ESLint and Prettier. When working in `template-app`, treat lint compliance as part of the implementation, not as optional cleanup after the fact.
 
-`npm run lint:fix` auto-fixes import ordering and some other mechanical issues. Prettier handles formatting only; import ordering is handled by ESLint auto-fix, not Prettier.
+`pnpm lint:fix` auto-fixes import ordering and some other mechanical issues. Prettier handles formatting only; import ordering is handled by ESLint auto-fix, not Prettier.
 
 Key frontend rules that are intentionally strict to reduce AI-slop:
 
@@ -213,4 +217,4 @@ Key frontend rules that are intentionally strict to reduce AI-slop:
 - Keep lines readable: frontend lines are capped at 100 characters unless covered by configured exceptions
 - File naming under `src/` must use `camelCase` or `PascalCase`, with explicit exceptions for Next special files like `page.tsx`, `layout.tsx`, `route.ts`, and `not-found.tsx`
 
-When adding imports, prefer normal imports over inline fully qualified access patterns. Let `npm run lint:fix` keep import order consistent.
+When adding imports, prefer normal imports over inline fully qualified access patterns. Let `pnpm lint:fix` keep import order consistent.

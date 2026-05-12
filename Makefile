@@ -21,7 +21,7 @@ server:
 	@./gradlew :template-server:bootRun
 
 frontend:
-	@cd template-app && npm run dev
+	@cd template-app && pnpm dev
 
 %:
 	@:

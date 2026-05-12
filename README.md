@@ -89,18 +89,26 @@ make dev
 | `./gradlew test` | Run server tests |
 | `./gradlew build` | Compile, lint, and test |
 
-### NPM
+### pnpm
+
+The frontend uses **pnpm** (not npm) for supply-chain hardening: every version
+is pinned, lifecycle scripts are disabled by default, and a 7-day cooldown
+blocks installation of just-published versions. See `template-app/.npmrc`.
+
+Install pnpm once via `corepack enable` (recommended — the version is pinned
+in `package.json` under `packageManager`) or `npm install -g pnpm`.
 
 Run these from `template-app`.
 
 | Command | Description |
 |---|---|
-| `npm run lint` | Run frontend ESLint checks |
-| `npm run lint:fix` | Auto-fix frontend ESLint issues such as import ordering |
-| `npm run format` | Format the frontend with Prettier |
-| `npm run format:check` | Check frontend formatting with Prettier |
-| `npm run typecheck` | Run the frontend TypeScript type checker |
-| `npm run check` | Run frontend typecheck, lint, and format checks |
+| `pnpm install` | Install frontend dependencies |
+| `pnpm lint` | Run frontend ESLint checks |
+| `pnpm lint:fix` | Auto-fix frontend ESLint issues such as import ordering |
+| `pnpm format` | Format the frontend with Prettier |
+| `pnpm format:check` | Check frontend formatting with Prettier |
+| `pnpm typecheck` | Run the frontend TypeScript type checker |
+| `pnpm check` | Run frontend typecheck, lint, and format checks |
 
 ## Updating the API
 
