@@ -1,0 +1,10 @@
+packages:
+  - "template-app"
+  - "template-api/template-api-typescript/src"
+
+registry: https://registry.npmjs.org/
+ignoreScripts: true
+saveExact: true
+minimumReleaseAge: 10080
+onlyBuiltDependencies: []
+strictPeerDependencies: false

@@ -198,7 +198,7 @@ Use BEM (Block Element Modifier) naming in CSS Module files. The block is the co
 
 ### Package manager
 
-The frontend uses **pnpm**, not npm. Run scripts as `pnpm <script>`. Pin all versions exactly in `package.json` — never use `^` or `~`. Do not modify `template-app/.npmrc`.
+The frontend uses **pnpm** as a workspace (`pnpm-workspace.yaml` at the repo root) covering `template-app` and the Conjure-generated `template-api/template-api-typescript/src`. Run scripts as `pnpm <script>` from inside `template-app`, or `pnpm --filter template-app <script>` from the root.
 
 ### Frontend code quality
 

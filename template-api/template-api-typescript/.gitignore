@@ -1,1 +1,3 @@
-/src/
+/src/*
+!/src/package.json
+!/src/tsconfig.json

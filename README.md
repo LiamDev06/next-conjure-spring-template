@@ -93,12 +93,17 @@ make dev
 
 The frontend uses **pnpm** (not npm) for supply-chain hardening: every version
 is pinned, lifecycle scripts are disabled by default, and a 7-day cooldown
-blocks installation of just-published versions. See `template-app/.npmrc`.
+blocks installation of just-published versions. The repo is a pnpm workspace
+— both `template-app` and the Conjure-generated `template-api-typescript/src`
+package live under one root `pnpm-lock.yaml`, with all settings declared in
+`pnpm-workspace.yaml` at the repo root.
 
 Install pnpm once via `corepack enable` (recommended — the version is pinned
-in `package.json` under `packageManager`) or `npm install -g pnpm`.
+in `package.json` under `packageManager`) or `npm install -g pnpm`. pnpm 11
+requires Node.js 22.13 or newer.
 
-Run these from `template-app`.
+Run `pnpm install` from the repo root. The other scripts below can be run from
+inside `template-app`, or from the root with `pnpm --filter template-app <script>`.
 
 | Command | Description |
 |---|---|

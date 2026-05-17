@@ -20,6 +20,11 @@ if [ "$FRONTEND_CHANGED" = true ]; then
   echo ""
   echo "==> Frontend changes detected"
 
+  # pnpm 11 needs Node >= 22.13
+  export NVM_DIR="${NVM_DIR:-$HOME/.nvm}"
+  . "$NVM_DIR/nvm.sh"
+  nvm use 22 >/dev/null
+
   echo "    Running ESLint..."
   if ! (cd template-app && pnpm lint); then
     FAILED=true

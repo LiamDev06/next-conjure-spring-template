@@ -17,3 +17,9 @@ conjure {
         }
     }
 }
+
+subprojects {
+    tasks.matching { it.name == "gitignoreConjureTypeScript" }.configureEach {
+        enabled = false
+    }
+}

@@ -6,8 +6,5 @@ set -euo pipefail
 find template-api/template-api-typescript/src -name '*.js'   -not -path '*/node_modules/*' -delete
 find template-api/template-api-typescript/src -name '*.d.ts' -not -path '*/node_modules/*' -delete
 
-# --ignore-scripts: defense-in-depth against postinstall hooks.
-(cd template-api/template-api-typescript/src && npm install --ignore-scripts && npx tsc)
-
-rm -rf template-app/node_modules/@template/template-api
-(cd template-app && pnpm install)
+pnpm install
+pnpm --filter @template/template-api exec tsc

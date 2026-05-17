@@ -38,7 +38,7 @@ find . -type f -name "*.java" \
   -exec sed -i '' "s/Template/$NAME_PASCAL/g" {} +
 
 # @template/ -> @<name>/  and  template- -> <name>- (module names, paths, npm scope, scripts)
-find . -type f \( -name "*.kts" -o -name "*.yml" -o -name "*.yaml" -o -name "*.json" -o -name "*.ts" -o -name "*.tsx" -o -name "*.sh" -o -name "CLAUDE.md" -o -name "Makefile" \) \
+find . -type f \( -name "*.kts" -o -name "*.yml" -o -name "*.yaml" -o -name "*.json" -o -name "*.ts" -o -name "*.tsx" -o -name "*.sh" -o -name "CLAUDE.md" -o -name "README.md" -o -name "Makefile" \) \
   -not -path "*/build/*" -not -path "*/node_modules/*" -not -path "*/.git/*" \
   -exec sed -i '' "s|@template/|@$NAME/|g; s/template-/$NAME-/g" {} +
 
